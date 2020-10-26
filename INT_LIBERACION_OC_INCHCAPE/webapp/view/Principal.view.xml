@@ -1,0 +1,211 @@
+﻿<mvc:View controllerName="intordendecompras.intOrdenDeCompras.controller.Principal" 	
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" 
+	displayBlock="true"
+	xmlns="sap.m" 
+	xmlns:l="sap.ui.layout"
+	xmlns:tnt="sap.tnt"
+	xmlns:f="sap.ui.layout.form">
+
+	 
+
+	<SplitApp id="idSplitApp" initialDetail="idPageLibOrdComp" initialMaster="idMasterLibOrdComp" mode="ShowHideMode">
+		
+		<!--//////////////Inicio detalles/////////////////-->
+		<detailPages>
+			
+			<!--INICIO - Detalle Liberación de Órden de Compra-->
+			<Page id="idPageLibOrdComp" title="Liberación de orden de compra" navButtonPress="onListItemPress" class="sapUiStdPage" >
+				
+				<!--<headerContent>-->
+				<!--	<Button icon="sap-icon://menu2" press="fnHideMaster">-->
+						
+				<!--	</Button>-->
+				<!--</headerContent>-->
+				
+				<content>
+					<core:Fragment fragmentName="intordendecompras.intOrdenDeCompras.fragment.FrgLibOrdComp" type="XML"/>
+				</content>	
+				
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button id = "btnLiberar" text="Liberar" type="Accept" icon="sap-icon://accept" press="onLiberar(true)"/>
+					</Toolbar>
+				</footer>
+				
+			</Page>
+			<!--FIN - Detalle Liberación de Órden de Compra-->
+			
+			
+			<!--INICIO - Detalle Liberación Masiva de Órdenes de Compra-->
+			<Page id="idPageLibMasOrdComp" title="Liberación masiva de ordenes de compra" navButtonPress="onListItemPress({'getId' : 'listLibMas'})" class="sapUiStdPage" >
+	
+				<content>
+					<core:Fragment fragmentName="intordendecompras.intOrdenDeCompras.fragment.FrgLibMasOrdComp" type="XML" />	
+				</content>
+				
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/> 
+							<Button id = "btnLibMasLiberar" text="Liberar" type="Accept" icon="sap-icon://accept" press="onLiberar(false)"/>
+						</Toolbar>
+				</footer>
+				
+			</Page>
+			<!--FIN - Detalle Liberación Masiva de Órdenes de Compra-->
+			
+		</detailPages>	
+		<!--/////////Fin Detalles//////////-->
+		
+		
+		<!--/////////Inicio Masters//////////-->
+		<masterPages>
+			
+			<!--INICIO - Liberación de Órden de Compra-->
+			<Page id="idMasterLibOrdComp" title="Órdenes de Compra" class="sapUiStdPage" >
+				<headerContent>
+					<tnt:InfoLabel id="il6" text="0" renderMode="Loose" colorScheme="5" displayOnly= "true" class="sapUiSmallMarginTop"/>
+				</headerContent>
+				
+				<subHeader>
+					<OverflowToolbar id="idOverflowToolbar">
+						<SearchField id="idSearchField" search="fnSearch(false)" visible = "true"/>
+					</OverflowToolbar>
+				</subHeader>
+
+				
+				<content>
+					
+					<!--<Toolbar>-->
+					<!--	<SearchField id="idSearchField" liveChange="fnNonde" search="fnSearch" showRefreshButton="true" />-->
+					<!--</Toolbar>	-->
+					
+					<!--Órdenes de Compra-->
+					<List id			="idListOrdComp"
+						items			="{ path: '/' }"
+						mode			="None"
+						selectionChange	="onSelectionChange"
+						itemPress		="onListItemPress">
+						
+						
+						<items>
+							<!--<StandardListItem custom:to="idPageLibOrdComp"-->
+							<!--type="Navigation"-->
+							<!--title="{po_number}"-->
+							<!--press="fnIntemOrdCompPress"/>-->
+							
+							<!--number="{-->
+							<!--			path: 'target_val',-->
+							<!--			formatter: '.formatter.onSetMoney'-->
+							<!--		}"-->
+							
+							<ObjectListItem
+							type="Navigation"
+							title="{po_number}"
+							number="{net_priceTotal}"
+							numberUnit="{currency}"
+							press="fnIntemOrdCompPress">
+								<attributes>
+									<ObjectAttribute text="{vend_name}"/>
+								</attributes>
+								<firstStatus>
+									<ObjectStatus text="{
+															path: 'created_on',
+															formatter: '.formatter.dates'
+														}"/>
+								</firstStatus>
+							</ObjectListItem>
+						</items>	
+						
+					</List>
+					
+				</content>		
+				
+				<footer>
+					<Toolbar id="idToolbar">
+						<!--<Button icon="sap-icon://refresh" type="Accept" press = "fnLoadAllData"/>-->
+						<!--<ToolbarSpacer/>-->
+						<!--<ToggleButton id="idLibMasivaOff" icon="sap-icon://flag" type="Accept" text="Liberación Masiva" press="fnToggleLibMasOrdComp"/>-->
+					</Toolbar>
+				</footer>
+				
+			</Page>
+			<!--FIN - Liberación de Órden de Compra-->
+			
+			
+			<!--INICIO - Liberación de Órden de Compra Masivo-->
+			<Page id="idMasterLibOrdCompMas" title="Órdenes de Compra" class="sapUiStdPage">
+				<headerContent>
+					<tnt:InfoLabel id="il5" text="0" renderMode="Loose" colorScheme="5" displayOnly= "true" class="sapUiSmallMarginTop"/>
+					<Button id="idNextPage" icon="sap-icon://action" tooltip="Share" visible="false" press="onListItemPress" />
+				</headerContent>
+				
+				<subHeader>
+					<OverflowToolbar id="idOverflosToolbarMas">
+						<MultiInput id="idNroDocumento" showValueHelp="false" placeholder="Ingrese uno o varios Documentos" width="85%"/>
+						<Button id="idBtnSearch" icon="sap-icon://search" press="fnSearch(true)"/>
+					</OverflowToolbar>
+				</subHeader>
+				
+				<content>
+					
+					<!--<Toolbar>-->
+					<!--	<SearchField id="idSearchField" liveChange="fnNonde" search="fnSearch" showRefreshButton="true" />-->
+					<!--</Toolbar>	-->
+					
+					<!--Órdenes de Compra-->
+					<List id			="idListOrdCompMas"
+						items			="{ path: '/' }"
+						mode			="MultiSelect"
+						selectionChange	="onSelectionChange">
+						
+						
+						<items>
+							<!--<StandardListItem custom:to="idPageLibOrdComp"-->
+							<!--type="Navigation"-->
+							<!--title="{po_number}"-->
+							<!--press="fnIntemOrdCompPress"/>-->
+							
+							<!--number="{-->
+							<!--			path: 'target_val',-->
+							<!--			formatter: '.formatter.onSetMoney'-->
+							<!--		}"-->
+							
+							<ObjectListItem
+							type="Navigation"
+							title="{po_number}"
+							number="{net_priceTotal}"
+							numberUnit="{currency}"
+							press="fnIntemOrdCompPress">
+								<attributes>
+									<ObjectAttribute text="{vend_name}"/>
+								</attributes>
+								<firstStatus>
+									<ObjectStatus text="{
+															path: 'created_on',
+															formatter: '.formatter.dates'
+														}"/>
+								</firstStatus>
+							</ObjectListItem>
+						</items>	
+						
+					</List>
+					
+				</content>		
+				
+				<footer>
+					<Toolbar id="idToolbarMas">
+						<!--<Button icon="sap-icon://refresh" type="Accept" press = "fnLoadAllData"/>-->
+						<!--<ToolbarSpacer/>-->
+						<!--<ToggleButton id="idLibMasivaOn" icon="sap-icon://flag" type="Accept" text="Liberación Masiva" press="fnToggleLibMasOrdComp"/>-->
+					</Toolbar>
+				</footer>
+				
+			</Page>
+			<!--FIN - Liberación de Órden de Compra Masivo-->
+		</masterPages>
+		<!--///////////Fin Masters/////////////-->
+		
+	</SplitApp>
+</mvc:View>

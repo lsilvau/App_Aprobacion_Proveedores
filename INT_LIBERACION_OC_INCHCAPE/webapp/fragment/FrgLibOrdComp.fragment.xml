@@ -1,0 +1,375 @@
+﻿<core:FragmentDefinition
+	xmlns		="sap.m"
+	xmlns:l		="sap.ui.layout"
+	xmlns:f		="sap.ui.layout.form"
+	xmlns:table	="sap.ui.table"
+	xmlns:t		="sap.ui.core.Toolbar"
+	xmlns:core	="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	
+	<!--Barra de Información-->
+	<!--number="{-->
+	<!--				path: '/target_val',-->
+	<!--				formatter: '.formatter.onSetMoney'-->
+	<!--			}"-->
+	<ObjectHeader id="idOHeaderOrdenCompra"
+		condensed="true"
+		title="{/po_number}"
+		number="{/net_priceTotal}"
+		numberUnit="{/currency}">
+		<attributes>
+			<ObjectAttribute text="{/vend_name}"/>
+		</attributes>
+	</ObjectHeader>
+
+	<Panel id="pnCabecera">
+		<content>
+		<f:Form id="idFormPosicion">
+			<f:layout>
+				<f:ResponsiveGridLayout
+					labelSpanXL="4"
+					labelSpanL="4"
+					labelSpanM="12"
+					labelSpanS="6"
+					adjustLabelSpan="false"
+					emptySpanXL="0"
+					emptySpanL="0"
+					emptySpanM="0"
+					emptySpanS="0"
+					columnsXL="4"
+					columnsL="4"
+					columnsM="3"
+					singleContainerFullSize="false" />		
+			</f:layout>
+		
+			<f:formContainers>
+				
+				<f:FormContainer>
+					<f:formElements>
+						<f:FormElement label="Sociedad">
+							<f:fields>
+								<Text text="{/butxt}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Proveedor">
+							<f:fields>
+								<Text text="{/vend_name}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Moneda">
+							<f:fields>
+								<Text text="{/currency}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Tip. Cambio">
+							<f:fields>
+								<Text text="{/exch_rate}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Usuario Creador">
+							<f:fields>
+								<Text text="{/name_text}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Fecha de Creación">
+							<f:fields>
+								<Text text="{ 
+									path: '/created_on',
+									formatter: '.formatter.dates'
+								}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Tipo de Pedido">
+							<f:fields>
+								<Text text="{/incoterms2}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Grupo de Compras">
+							<f:fields>
+								<Text text="{/rel_group}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+				<f:FormContainer>
+					<f:formElements>								
+						<f:FormElement label="Org. de Compras">
+							<f:fields>
+								<Text text="{/purch_org}" />
+							</f:fields>
+						</f:FormElement>
+					</f:formElements>
+				</f:FormContainer>
+				
+			</f:formContainers>
+		</f:Form>
+		</content>
+	</Panel>
+			
+	<!--Barra de iconos-->
+	<IconTabBar
+		class="sapUiResponsiveContentPadding">
+		<items>
+			
+			<!--INICIO - Cabecera de datos-->
+			<IconTabFilter
+				icon="sap-icon://hint">
+				
+				<!--inicio formulario-->
+				<VBox>
+					<Panel>
+						<table:Table
+							id="idListLiberador"
+							rows="{ path: '/' }"
+							visibleRowCount="0"
+							paste="onPaste"
+							selectionMode = "None">
+							<table:columns>
+								<table:Column width="3.3rem">
+									<Label text="Cód."/>
+									<table:template>
+										<Text text="{cod_lib}" wrapping="false" />
+									</table:template>
+								</table:Column>
+								<table:Column>
+									<Label text="Denominación" />
+									<table:template>
+										<Text text="{denominacion}"/>
+									</table:template>
+								</table:Column>
+								<table:Column id="idColumnResp">
+									<Label text="Responsable" />
+									<table:template>
+										<Text text="{responsable}" />
+									</table:template>
+								</table:Column>
+								<table:Column width="3rem">
+									<Label text="Est." />
+									<table:template>
+										<core:Icon
+											id="idIconEst"
+											src="sap-icon://accept"
+											class="size1"
+											color="#4CA258"
+											visible="{estado_visible}">
+										</core:Icon>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</Panel>
+				</VBox>
+				<!--fin formulario-->
+			</IconTabFilter> 
+			<!--INICIO - Cabecera de datos-->
+
+			<!--Texto Descriptcion-->
+			<IconTabFilter id="idITFText" icon="sap-icon://attachment-text-file" key="keyArchivos" class="sapUiResponsiveContentPadding">
+				<Panel>
+		 			<TextArea id="idTextDesc" width = "100%"  height = "200px" editable="false" />
+				</Panel>
+			</IconTabFilter>
+			
+			<!--Agregar id para mostrar cantidad-->
+			<IconTabFilter
+				id="idITFPosiciones"
+				icon="sap-icon://notes">
+				
+				<!--INICIO - Tabla Datos de Posición-->
+				<Table
+					id="idTablePosiciones"
+					inset="false"
+					items="{ 
+								path : '/'
+							}">
+					
+					<columns>
+						
+						<Column>
+							<Text text="Posición" />
+						</Column>
+						
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Cod Material" />
+						</Column>
+						
+						<Column minScreenWidth="Desktop" demandPopin="true" width = "15%">
+							<Text text="Material" />
+						</Column>
+						
+						<Column minScreenWidth="Desktop" demandPopin="true" width = "15%">
+							<Text text="Centro" />
+						</Column>
+						
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Centro Costo" />
+						</Column>
+						
+	<!--				<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Cuenta Contable" />
+						</Column>-->
+						
+						<Column>
+							<Text text="Cantidad" />
+						</Column>
+						
+						<Column>
+							<Text text="Unidad" />
+						</Column>
+						
+						<Column>
+							<Text text="Valor Neto" />
+						</Column>
+						
+					</columns>
+					
+					<items>
+						<ColumnListItem>
+						
+							<!--Posición-->
+							<ObjectNumber number="{po_item}" />
+							
+							<!--Codigo de materia-->
+							<Text text="{material}" />
+							
+							<!--Material-->
+							<Text text="{short_text}" />
+							
+							<!--Centro-->
+							<Text text="{plant_description}" />
+							
+							<!--Centro Costo-->
+							<Text text="{kostl}" />
+							
+							<!--Cuenta Contable-->
+			<!--			<Text text="{sakto}" />	-->
+							
+							
+							<!--Cantidad-->
+							<Text text="{path:'disp_quan', formatter: '.formatter.onSetMoney'}"/>
+							<!--<ObjectNumber number="{disp_quan}" />-->
+							
+							<!--Unidad-->
+							<Text text="{unit}" />
+							
+							<!--Valor Neto-->
+							<Text  text="{path:'net_price'}"/>
+							<!--<Text  text="{path:'net_price', formatter: '.formatter.onSetConvertFormaterMoney'}"/>-->
+							
+							<!--<Text  text="{path:'net_price', formatter: '.formatter.onSetMoney'}"/>-->
+							<!--<Text text="{net_price}" />-->
+							
+						</ColumnListItem>
+					</items>
+				</Table>
+				<!--FIN - Tabla Datos de Posición-->
+				
+			</IconTabFilter>
+			
+			<!--INIcIO - Archivos adjuntos-->
+			<IconTabFilter
+				id="idITFAdjuntos"
+				icon="sap-icon://attachment">
+				<!--PENDIENTE - selecionar un mejor control :D-->
+				<!--4500017954 - con adjunto-->
+				
+				<Table id="idTableDocAdj" items="{path:'/'}">
+					<!--<Table id="idTableDocAdj">-->
+					<columns>
+						<Column>
+							<Text text="Vínculo Adjunto"/>
+						</Column>
+					</columns>
+					<items>
+
+						<ColumnListItem>
+							<cells>	
+								<Link text="{Name}" press="onGoLink"/>		
+							</cells>
+						</ColumnListItem>
+		<!--				<ColumnListItem>
+							<cells>
+								<Link text="https://fabooo.sharepoint.com/:f:/s/Test/EtQd2nQmJUpMmPpBMPLp8BcBx4d6X0qSMXSCLSSYRp8dNA?e=XtH6Uw" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>
+						<ColumnListItem>
+							<cells>
+								<Link text="https://fabooo.sharepoint.com/:i:/s/Test/ETmKM0nKW5RIuXl3_fvFy6oBVPZncLggu-Xv2zGgbrvTNQ?e=HLS7sx" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>
+						<ColumnListItem>
+							<cells>
+								<Link text="https://fabooo.sharepoint.com/:b:/s/Test/EX6Rhi9__INBqdhGD9A-UIsBppbg2DOepDiueb_j9Ao-HQ?e=D5pECt" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>
+						<ColumnListItem>
+							<cells>
+								<Link text="https://fabooo.sharepoint.com/:w:/s/Test/ETtB9NPRPV1EgiM1CWz4Se0Bq8D-0wC2gfJd-HJIJdfKzg?e=50TlBx" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>
+						<ColumnListItem>
+							<cells>
+								<Link text="https://fabooo.sharepoint.com/:x:/s/Test/EcrhWFLlXhBCq1dtSEsfSW8BzxZqEaFVBtsha55UvA0mPg?e=puiTzb" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>-->
+					</items>
+				</Table>
+
+				<Tree id="Tree" items="{path: '/'}" mode="SingleSelect" busyIndicatorDelay="0" toggleOpenState="onToggleOpenState" class="sapUiMediumMarginTop">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Title id="treeTitle" text="Ruta principal: ()" level="h2"/>
+								<ToolbarSpacer/>
+								<Button icon="sap-icon://download" press="onDescargarDocumento"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<StandardTreeItem title="{text}" icon="{ref}" />
+				</Tree> 
+				
+			</IconTabFilter>
+			<!--FIN - Archivos adjuntos-->
+			
+		</items>
+	</IconTabBar>
+	
+	
+	
+</core:FragmentDefinition>

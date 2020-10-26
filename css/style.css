@@ -1,0 +1,34 @@
+/* Enter your custom styles here */
+.tileLayout {
+	float: left;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px; 
+    border: 0px;
+    display: block;
+} 
+
+/*
+@media only screen s
+  and (min-device-width: 300px) 
+  and (max-device-width: 700px)
+  and (orientation: landscape) {
+	#container-INT_PORTAL_INCHCAPE---Logon--idLogo {
+    		display: none;
+	}
+}*/
+
+/*Borde inferior - Panel*/
+.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border-bottom: none;
+}
+
+.grecaptcha-badge { visibility: hidden; }
+
+.texto{
+  padding: 10px !important;
+}

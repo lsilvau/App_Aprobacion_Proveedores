@@ -1,0 +1,255 @@
+
+<core:FragmentDefinition
+	xmlns		="sap.m"
+	xmlns:table	="sap.ui.table"
+	xmlns:l		="sap.ui.layout"
+	xmlns:f		="sap.ui.layout.form"
+	xmlns:core	="sap.ui.core">
+	
+		<ObjectHeader id="idOHeaderSolPed"
+			condensed="true"
+			title="{/po_number}"
+			number="{/target_val}"
+			numberUnit="{/currency}">
+			<attributes>
+				<ObjectAttribute text="{/vend_name}"/>
+			</attributes>
+		</ObjectHeader>
+		
+		<Panel id="pnCabecera">
+			<content>
+				<f:Form>
+					<f:layout>
+						<f:ResponsiveGridLayout
+							labelSpanXL="4"
+							labelSpanL="6"
+							labelSpanM="12"
+							labelSpanS="6"
+							adjustLabelSpan="false"
+							emptySpanXL="0"
+							emptySpanL="0"
+							emptySpanM="0"
+							emptySpanS="0"
+							columnsXL="4"
+							columnsL="4"
+							columnsM="4"
+							singleContainerFullSize="false" />		
+					</f:layout>
+				
+					<f:formContainers>
+						
+						<f:FormContainer>
+							<f:formElements>
+								<f:FormElement label="Centro">
+									<f:fields>
+										<Text text="{/werks}" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						
+						<f:FormContainer>
+							<f:formElements>								
+								<f:FormElement label="Moneda">
+									<f:fields>
+										<Text text="{/currency}" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						
+						<f:FormContainer>
+							<f:formElements>								
+								<f:FormElement label="Usuario Creador">
+									<f:fields>
+										<Text text="{/}" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						
+						<f:FormContainer>
+							<f:formElements>								
+								<f:FormElement label="Fecha de Modificación">
+									<f:fields>
+										<Text text = "{
+											path: '/frgdt',
+											formatter: '.formatter.dates'
+										}" />
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+					</f:formContainers>
+				</f:Form>
+			</content>
+		</Panel>
+		<!--Barra de iconos-->
+		<IconTabBar
+			class="sapUiResponsiveContentPadding">
+			<items>
+				<IconTabFilter
+				icon="sap-icon://hint">
+				 
+				<VBox>
+					<Panel>
+						<table:Table id="idListLiberador" rows="{ path: '/' }" visibleRowCount="0" paste="onPaste"
+							selectionMode = "None">
+							<table:columns>
+								<table:Column width="3.3rem">
+									<Label text="Cód."/>
+									<table:template>
+										<Text text="{cod_lib}" wrapping="false" />
+									</table:template>
+								</table:Column>
+								<table:Column>
+									<Label text="Denominación" />
+									<table:template>
+										<Text text="{denominacion}"/>
+									</table:template>
+								</table:Column>
+								<table:Column id="idColumnResp">
+									<Label text="Responsable" />
+									<table:template>
+										<Text text="{responsable}" />
+									</table:template>
+								</table:Column>
+								<table:Column width="3rem">
+									<Label text="Est." />
+									<table:template>
+										<core:Icon id="idIconEst" src="sap-icon://accept" class="size1" color="#4CA258" visible="{estado_visible}">
+										</core:Icon>
+									</table:template>
+								</table:Column>
+							</table:columns>
+						</table:Table>
+					</Panel>
+				</VBox>
+				<!--fin formulario-->
+			</IconTabFilter>
+
+			<!--Texto Descriptcion-->
+			<IconTabFilter id="idITFText" icon="sap-icon://attachment-text-file" key="keyArchivos" class="sapUiResponsiveContentPadding">
+				<Panel>
+		 			<TextArea id="idTextDesc" width = "100%"  height = "200px" editable="false" value="Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion, Este es mi texto de Descripcion,"/>
+				</Panel>
+			</IconTabFilter>
+
+			<!--Cabecera de datos-->
+			<IconTabFilter key="keyCabeceraDatos" id="idITFPosiciones" icon="sap-icon://notes">
+
+				<Table id="idTablePosiciones" inset="false" mode="MultiSelect" selectionChange="onSelectItemTable" items="{ 
+								path : '/',
+								sorter: {
+										path: 'po_item'
+								}
+							}">
+
+					<columns>
+
+						<Column>
+							<Text text="Posición" />
+						</Column>
+
+						<Column width="20%">
+							<Text text="Material" />
+						</Column>
+
+						<Column hAlign="End">
+							<Text text="Cantidad" />
+						</Column>
+
+						<Column >
+							<Text text="Unidad" />
+						</Column>
+
+						<Column minScreenWidth="Desktop" demandPopin="true" hAlign="End" width="4rem">
+							<Text text="Importe"/>
+						</Column>
+
+						<Column minScreenWidth="Desktop" demandPopin="true">
+							<Text text="Moneda"/>
+						</Column>
+
+						<Column minScreenWidth="Desktop" demandPopin="true" width="20%">
+							<Text text="Cod. Liberador"/>
+						</Column>
+					</columns>
+
+					<items>
+						<ColumnListItem>
+
+							<!--Posición-->
+							<ObjectNumber number="{po_item}" />
+
+							<!--Material-->
+							<Text text="{short_text}" />
+
+							<!--Cantidad-->
+							<Text text="{path:'disp_quan', formatter: '.formatter.onSetMoney'}"/>
+							<!--<ObjectNumber number="{disp_quan}" />-->
+
+							<!--Unidad-->
+							<Text text="{unit}" />
+
+							<!--Importe-->
+							<Text text="{importe}" />
+							<!--<ObjectNumber number="{ parts:[ {path: 'disp_quan' }, {path: 'net_price' } ], formatter: '.formatter.onValorTotal'}"/>-->
+							<!--<Text text="{path:'net_price', formatter: '.formatter.onSetMoney'}"/>-->
+							<!--<Text text="{net_price}" />-->
+
+							<!--M-->
+							<Text text="{currency}"/>
+
+							<!--Cod Liberador-->
+							<Text text="{ddtext}"/>
+
+						</ColumnListItem>
+					</items>
+				</Table>
+
+			</IconTabFilter>
+
+			<!--Archivos adjuntos-->
+			<IconTabFilter id="idITFAdjuntos" icon="sap-icon://attachment" key="keyArchivos">
+				<Table id="idTableDocAdj" items="{path:'/'}">
+					<columns>
+						<Column>
+							<Text text="Vínculo Adjunto"/>
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem >
+							<cells>
+								<Link text="{Name}" press="onGoLink"/>
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+				<!--Button icon="sap-icon://edit" type="Transparent" press="onTabAdjuntos" /-->
+				<!--Button icon="sap-icon://save" type="Transparent" press="onGoLink" /-->
+
+			 	<Tree id="Tree" items="{path: '/'}" mode="SingleSelect" busyIndicatorDelay="0" toggleOpenState="onToggleOpenState" class="sapUiMediumMarginTop">
+					<headerToolbar>
+						<OverflowToolbar>
+							<content>
+								<Text id="treeTitle" text="Ruta principal: ()" level="h2"/>
+								<ToolbarSpacer/>
+								<Button icon="sap-icon://download" press="onDescargarDocumento"/>
+							</content>
+						</OverflowToolbar>
+					</headerToolbar>
+					<StandardTreeItem title="{text}" icon="{ref}" />
+				</Tree> 
+
+			</IconTabFilter>
+			
+
+		</items>
+
+	</IconTabBar>
+
+	
+
+
+</core:FragmentDefinition>

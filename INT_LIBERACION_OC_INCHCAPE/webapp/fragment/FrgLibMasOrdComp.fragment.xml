@@ -1,0 +1,56 @@
+<core:FragmentDefinition   
+	xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+	
+	<!--Inicio Tabla-->
+	
+		<!--<Table-->
+		<!--	id		= "idTableLibMas" -->
+		<!--	inset	= "false"-->
+		<!--	items	= "{path : '/'}"-->
+		<!--	mode	= "Delete">-->
+	<Panel width="auto" class="sapUiResponsiveMargin">
+		<content>
+			<Table
+				id		= "idTableLibMas" 
+				inset	= "false"
+				items	= "{path : '/'}">
+				
+				<columns>
+					<Column>
+						<Text text="Nro de Orden" />
+					</Column>
+					
+					<Column  minScreenWidth="Desktop" demandPopin="true">
+						<Text text="Liberador" />
+					</Column>
+					
+					<Column  minScreenWidth="Desktop" demandPopin="true">
+						<Text text="Sig. Liberador" />
+					</Column>
+					
+					<Column>
+						<Text text="Importe" />
+					</Column>
+					
+				</columns>
+				
+				<items>
+					<ColumnListItem>
+						
+						<Text text="{Documento}"/>
+						<Text text="{Liberador}"/>
+						<Text text="{SigLiberador}"/>
+						<Text text="{Importe}"/>
+						
+					</ColumnListItem>
+				</items>
+			</Table>
+		</content>
+	</Panel>
+	<!--Inicio Tabla-->
+	
+
+</core:FragmentDefinition>

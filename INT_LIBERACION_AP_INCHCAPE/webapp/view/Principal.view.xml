@@ -1,0 +1,127 @@
+<mvc:View controllerName="aprobacionproveedor.aprobacionProveedor.controller.Principal"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:tnt="sap.tnt"
+	xmlns:f="sap.ui.layout.form">
+
+	<!--//////////////Header/////////////////-->
+	<!-- <tnt:ToolHeader>
+		<Button icon="sap-icon://navigation-left-arrow" type="Transparent" class="sapUiSmallMarginBegin"/>
+		<Image src="img/inchcape.png" alt="Inicio" visible="true" width="8%" press="onInicio" class="sapUiMediumMarginBegin sapUiMediumMarginEnd"/>
+		<Text text="Solicitud de Pedidos" wrapping="false" />
+		<ToolbarSpacer />
+		<Label text="Oscar Fabián Ortiz Velayarce" labelFor="input-a"/>
+		<Button icon="sap-icon://account" type="Transparent" press="onInfoUser" class="sapUiMediumMarginEnd"/>
+	</tnt:ToolHeader> -->
+
+	<SplitApp id="idSplitApp" initialDetail="idPageSolPedi" initialMaster="idMasterSolPedi" mode="ShowHideMode">
+
+		<!--//////////////Inicio detalles/////////////////-->
+		<detailPages>
+
+			<!--INICIO - Solicitud De Pedido-->
+			<Page id="idPageSolPedi" title="Aprobación de Proveedores" class="sapUiStdPage" navButtonPress="onListItemPress" busy="true">
+				<content>
+					<core:Fragment fragmentName="aprobacionproveedor.aprobacionProveedor.fragment.FrgSolicitudDePedido" type="XML"/>
+				</content>
+
+				<footer >
+					<Toolbar id="idFooter">
+						<ToolbarSpacer/>
+						<Button text="Liberar" type="Accept" press="onLiberar" icon="sap-icon://accept"/>
+					</Toolbar>
+				</footer>
+
+			</Page>
+			<!--FIN - Solicitud De Pedido-->
+
+		</detailPages>
+		<!--/////////Fin Detalles//////////-->
+
+
+		<!--/////////Inicio Masters//////////-->
+		<masterPages>
+
+			<!--INCIO - Solicitud de Pedido-->
+			<Page id="idMasterSolPedi" title="Solicitudes pendientes" class="sapUiStdPage">
+				<headerContent>
+					<tnt:InfoLabel id="il6" text="0" renderMode="Loose" colorScheme="5" displayOnly= "true" class="sapUiSmallMarginTop"/>
+				</headerContent>
+
+				<subHeader>
+					<OverflowToolbar>
+						<SearchField id="idSearchField" search="fnSearch" showRefreshButton="false" />
+					</OverflowToolbar>
+				</subHeader>
+				<content>
+
+					<!--Solicitudes de Pedidos-->
+					<List id ="idListSolPedi" items ="{ path: '/' }" mode ="None" itemPress ="onListItemPress">
+
+						<items>
+
+							<!-- 							 <ObjectListItem type="Navigation" title="{cod_vend}" number="{
+								parts:[{path:'created_by'}],
+								type: 'sap.ui.model.type.String'
+							}" press="fnIntemSolPedPress">
+								<firstStatus>
+									
+									 <ObjectStatus text="{
+															path: 'doc_date',
+															formatter: '.formatter.dates'
+														}"/> 
+										
+								</firstStatus>
+
+								<ObjectAttribute text="{name_vend}" width='100rem' />
+
+							</ObjectListItem> -->
+
+							<CustomListItem type="Navigation" title="{cod_vend}" press="fnIntemSolPedPress">
+								<HBox>
+									<VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+										<FlexBox height="60px" alignItems="Start" justifyContent="Center">
+											<FlexBox height="30px" direction="Column" alignItems="Center" justifyContent="Center" class="sapUiSmallMarginEnd">
+												<Label class="texto" text="{cod_vend}"/>
+												<Label text="{
+															path: 'doc_date',
+															formatter: '.formatter.dates'
+														}" />
+
+											</FlexBox>
+
+											<FlexBox height="30px" direction="Column" alignItems="Center" justifyContent="Center">
+													<Label text="{name_vend}"/>
+													<Label text="{motivo}"/>
+											</FlexBox>
+
+										</FlexBox>
+									</VBox>
+								</HBox>
+							</CustomListItem>
+
+
+						</items>
+
+					</List>
+
+				</content>
+
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button icon="sap-icon://refresh" type="Accept" press = "fnLoadAllData"/>
+					</Toolbar>
+				</footer>
+
+			</Page>
+			<!--INCIO - Solicitud de Pedido-->
+
+
+		</masterPages>
+		<!--///////////Fin Masters/////////////-->
+
+	</SplitApp>
+</mvc:View>

@@ -1,0 +1,46 @@
+.sapMLIBHoverable:hover {
+    background: #D1D4E4;
+}
+
+.sapMPanelContent:not(.sapMPanelBGTransparent) {
+    border-bottom: none;
+}
+
+.sapMObjLNumberDiv .sapMObjectNumber .sapMObjectNumberText {
+    font-size: 1.300rem !important;
+}
+
+.sapMText.sapMObjLTitle {
+    font-size: 1.050rem !important;
+}
+
+/*/********************************* App Solicitud de Pedido ********************************** */
+
+.sapTntToolHeader.sapMTB {
+    background-color: #fff !important;
+    border-bottom: 0.0925rem solid #f6f6f6 !important;
+}
+
+.sapUiTable {
+    font-family: "72","72full",Arial,Helvetica,sans-serif;
+    color: #32363a;
+    position: relative;
+    box-sizing: border-box;
+    z-index: 0;
+    width: 340px !important;
+}
+
+/*Formulario de Cabecera*/
+.sapUiFormM:not(.sapUiFormEdit) .sapUiFormResGridCont {
+    margin-top: -0.25rem;
+    padding-bottom: 0.35rem;
+}
+
+.sapMLnk {
+    color: #476e94 !important;
+}
+.texto{
+    padding: 10px !important;
+}
+/*/********************************* App Solicitud de Pedido ********************************** /
+
